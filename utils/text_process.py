@@ -20,7 +20,8 @@ def get_tokenlized(file):
     tokenlized = list()
     with open(file) as raw:
         for text in raw:
-            text = nltk.word_tokenize(text.lower())
+            #text = nltk.word_tokenize(text.lower())
+            text = row.strip().split(" ")
             tokenlized.append(text)
     return tokenlized
 

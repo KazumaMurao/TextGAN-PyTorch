@@ -34,7 +34,7 @@ scriptname = 'main.py'
 # ===Program===
 if_test = int(False)
 run_model = 'seqgan'
-CUDA = int(True)
+CUDA = int(False)
 oracle_pretrain = int(True)
 gen_pretrain = int(False)
 dis_pretrain = int(False)
@@ -43,9 +43,9 @@ ADV_train_epoch = 200
 tips = 'SeqGAN experiments'
 
 # ===Oracle  or Real===
-if_real_data = [int(False), int(True), int(True)]
-dataset = ['oracle', 'image_coco', 'emnlp_news']
-vocab_size = [5000, 0, 0]
+if_real_data = [int(False), int(True), int(True), int(True)]
+dataset = ['oracle', 'image_coco', 'emnlp_news', 'chord']
+vocab_size = [5000, 0, 0, 0]
 
 # ===Basic Param===
 data_shuffle = int(False)

@@ -69,8 +69,10 @@ class BasicInstructor:
         if cfg.oracle_pretrain:
             if not os.path.exists(cfg.oracle_state_dict_path):
                 create_oracle()
-            self.oracle.load_state_dict(
-                torch.load(cfg.oracle_state_dict_path, map_location='cuda:{}'.format(cfg.device)))
+            if cfg.CUDA:
+                self.oracle.load_state_dict(torch.load(cfg.oracle_state_dict_path, map_location='cuda:{}'.format(cfg.device)))
+            else:
+                self.oracle.load_state_dict(torch.load(cfg.oracle_state_dict_path, map_location=torch.device('cpu')))
 
         if cfg.dis_pretrain:
             self.log.info(
@@ -234,7 +236,13 @@ class BasicInstructor:
                 break
 
         # Load Oracle state dict
-        self.oracle.load_state_dict(torch.load(cfg.oracle_state_dict_path, map_location='cuda:{}'.format(cfg.device)))
+        if cfg.CUDA:
+            self.oracle.load_state_dict(torch.load(cfg.oracle_state_dict_path, map_location='cuda:{}'.format(cfg.device)))
+        else:
+            self.oracle.load_state_dict(torch.load(cfg.oracle_state_dict_path, map_location=torch.device('cpu')))
         for i in range(cfg.k_label):
             oracle_path = cfg.multi_oracle_state_dict_path.format(i)
-            self.oracle_list[i].load_state_dict(torch.load(oracle_path, map_location='cuda:{}'.format(cfg.device)))
+            if cfg.CUDA:
+                self.oracle_list[i].load_state_dict(torch.load(oracle_path, map_location='cuda:{}'.format(cfg.device)))
+            else:
+                self.oracle_list[i].load_state_dict(torch.load(oracle_path, map_location=torch.device('cpu')))

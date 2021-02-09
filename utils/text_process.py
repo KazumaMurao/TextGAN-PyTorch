@@ -21,7 +21,7 @@ def get_tokenlized(file):
     with open(file) as raw:
         for text in raw:
             #text = nltk.word_tokenize(text.lower())
-            text = row.strip().split(" ")
+            text = text.strip().split(" ")
             tokenlized.append(text)
     return tokenlized
 
